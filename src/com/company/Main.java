@@ -2,11 +2,14 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        var actionList = new ArrayList<ActionElement>();
+        var actionDictonary = new ArrayList<ActionTypes>();
         try {
             var data = new File("./src/com/company/actiontexts.txt");
             var text = new Scanner(data);
