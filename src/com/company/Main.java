@@ -18,16 +18,15 @@ public class Main {
             while (text.hasNextLine())
             {
                 String line = text.nextLine();
-                var actionLine = StringToAction(line);
-                System.out.println(actionLine.getAction() + "" + actionLine.getText());
+                actionList.add(StringToAction(line));
             }
+            for(var i : actionList)
+                System.out.println(i);
         }
         catch (FileNotFoundException e){
             e.printStackTrace();
 
         }
-        File directory = new File("./");
-        System.out.println(directory.getAbsolutePath());
 
     }
 
@@ -37,17 +36,17 @@ public class Main {
         String action = ":(";
         String text = ":)";
 
-        Pattern pattern = Pattern.compile("(.*):");
-        Matcher m = pattern.matcher(textLine);
+        Pattern actionPattern = Pattern.compile(".+(?=:)");
+        Matcher actionMatcher = actionPattern.matcher(textLine);
 
-        Pattern pattern2 = Pattern.compile(":(.*)");
-        Matcher m2 = pattern2.matcher(textLine);
+        Pattern textPattern = Pattern.compile("(?<=:).*");
+        Matcher textMatcher = textPattern.matcher(textLine);
 
-        while (m.find())
-            action = m.group(0);
+        while (actionMatcher.find())
+            action = actionMatcher.group(0);
 
-        while (m2.find())
-            text = m2.group(0);
+        while (textMatcher.find())
+            text = textMatcher.group(0);
 
         return new ActionElement(action, text);
     }

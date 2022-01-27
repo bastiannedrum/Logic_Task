@@ -7,9 +7,8 @@ interface RunAction
 
 public class ActionElement
 {
-    private String text;
     private String action;
-//public RunAction action;
+    private String text;
 
     public String getText() {
         return text;
@@ -17,6 +16,14 @@ public class ActionElement
 
     public String getAction() {
         return action;
+    }
+
+    @Override
+    public String toString() {
+        return "ActionElement{" +
+                ", action='" + action + '\'' +
+                "text='" + text + '\'' +
+                '}';
     }
 
     public ActionElement(String action, String text) {
