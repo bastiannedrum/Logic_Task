@@ -4,6 +4,7 @@ import com.company.ActionInterface;
 
 public class PalindromeAction implements ActionInterface
 {
+    //Current implementation cares about capitalization and looks at the text as a whole
     public String actionMethode(String text)
     {
         boolean isPalindrome = true;

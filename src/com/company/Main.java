@@ -11,7 +11,10 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        //ActionInterface should be crucial, intelliJ does not think so
+        //todo make ActionInterface necessary
         var actionDictionary = new ArrayList<ActionInterface>(Arrays.asList(
                 new ReverseAction()
                 ,new CapitalizeAction()
@@ -71,6 +74,7 @@ public class Main {
 
         while (actionMatcher.find())
             action = actionMatcher.group(0);
+        //todo see if this is a correct implementation
 
         while (textMatcher.find())
             text = textMatcher.group(0);

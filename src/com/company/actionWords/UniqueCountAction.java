@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class UniqueCountAction implements ActionInterface
 {
+    // Looks for all characters not just letters, capital is a different letter
     public String actionMethode(String text)
     {
         var uniqueLetters = new ArrayList<String>();
