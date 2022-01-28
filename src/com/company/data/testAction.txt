@@ -1,0 +1,10 @@
+CAPITALIZE:monkey
+PALINDROME:ship
+PALINDROME:pip
+PALINDROME:piip
+REVERSE:church
+UNIQUE_COUNT:cup
+UNIQUE_COUNT:cuuuuuuup
+UNIQUE_COUNT:ccccuuuuuuup
+WHITESPACE:cow wall
+WHITESPACE:cowwall

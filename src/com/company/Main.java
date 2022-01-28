@@ -1,46 +1,73 @@
 package com.company;
 
+import com.company.actionWords.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) {
+        var actionDictionary = new ArrayList<ActionInterface>(Arrays.asList(
+                new ReverseAction()
+                ,new CapitalizeAction()
+                ,new WhitespaceAction()
+                ,new UniqueCountAction()
+                ,new PalindromeAction()
+        ));
+        var actionList = createActionList("./src/com/company/data/actiontexts.txt");
+        var testList = createActionList("./src/com/company/data/testAction.txt");
+
+        runActionList(actionDictionary, actionList);
+        runActionList(actionDictionary, testList);
+    }
+
+    private static void runActionList(ArrayList<ActionInterface> actionDictionary, ArrayList<ActionElement> actionList)
+    {
+        int lineCount = 1;
+        for(var i : actionList)
+            for(var j : actionDictionary)
+                if(j.getActionName().equals(i.getAction()))
+                {
+                    System.out.println("lineCount:"+ lineCount +"\t|Text: ["+ i.getText() +"] ran Action: [" + i.getAction() + "] with result: [" + j.actionMethode(i.getText())+ "]");
+                    lineCount++;
+                    break;
+                }
+    }
+
+    private static ArrayList<ActionElement> createActionList(String filePath)
+    {
         var actionList = new ArrayList<ActionElement>();
-        var actionDictonary = new ArrayList<ActionTypes>();
-        try {
-            var data = new File("./src/com/company/actiontexts.txt");
+        try
+        {
+            var data = new File(filePath);
             var text = new Scanner(data);
             while (text.hasNextLine())
             {
                 String line = text.nextLine();
-                actionList.add(StringToAction(line));
+                actionList.add(stringToActionElement(line));
             }
-            for(var i : actionList)
-                System.out.println(i);
         }
-        catch (FileNotFoundException e){
+
+        catch (FileNotFoundException e)
+        {
             e.printStackTrace();
-
         }
-
+        return actionList;
     }
 
-    private static ActionElement StringToAction(String textLine)
+    private static ActionElement stringToActionElement(String textLine)
     {
-        // todo add try
-        String action = ":(";
-        String text = ":)";
 
-        Pattern actionPattern = Pattern.compile(".+(?=:)");
-        Matcher actionMatcher = actionPattern.matcher(textLine);
+        String action = "";
+        String text = "";
 
-        Pattern textPattern = Pattern.compile("(?<=:).*");
-        Matcher textMatcher = textPattern.matcher(textLine);
+        var actionMatcher = Pattern.compile(".+(?=:)").matcher(textLine); // regex finds everything before ":"
+        var textMatcher = Pattern.compile("(?<=:).*").matcher(textLine); // everything after
 
         while (actionMatcher.find())
             action = actionMatcher.group(0);
